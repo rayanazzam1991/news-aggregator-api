@@ -4,6 +4,9 @@ namespace Modules\Article\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Modules\Article\Models\Author;
+use Modules\Article\Models\Category;
+use Modules\Article\Models\Source;
 
 /**
  * @OA\Schema(
@@ -95,9 +98,9 @@ use Illuminate\Http\Resources\Json\JsonResource;
  *
  * @property int $id
  * @property string $title
- * @property string $source
- * @property string|null $category
- * @property string|null $author
+ * @property Source $source
+ * @property Category|null $category
+ * @property Author|null $author
  * @property string|null $key_words
  * @property string|null $summary
  * @property string|null $image_url
@@ -119,17 +122,14 @@ class ArticleDetailsResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'source' => $this->source,
-            'category' => $this->category,
-            'author' => $this->author,
+            'source' => $this->source->name,
+            'category' => $this->category?->name,
+            'author' => $this->author?->name,
             'key_words' => $this->key_words,
             'summary' => $this->summary,
             'image_url' => $this->image_url,
             'news_url' => $this->news_url,
             'meta' => $this->meta,
-            'deleted_at' => $this->deleted_at,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
         ];
     }
 }

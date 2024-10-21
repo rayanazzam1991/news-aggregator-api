@@ -8,15 +8,80 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Modules\Article\Filter\ArticleSearchFilter;
 use Modules\Article\Http\Requests\GetArticlesListRequest;
+use Modules\Article\Http\Resources\ArticleDetailsResource;
 use Modules\Article\Http\Resources\ArticlesListResource;
 use Modules\Article\Http\Resources\PaginationResource;
 use Modules\Article\Service\ArticleService;
 
-class ArticlesListController extends Controller
+class ArticleController extends Controller
 {
     public function __construct(
         private readonly ArticleService $articleService
     ) {}
+
+    /**
+     * @OA\Get(
+     *     path="/api/v1/articles/show/{id}",
+     *     operationId="getArticleDetails",
+     *     tags={"Articles"},
+     *     summary="Get article details by ID",
+     *     description="This endpoint returns the details of a specific article based on its ID.",
+     *     security={{"sanctum": {}}},
+     *
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID of the article to retrieve",
+     *         @OA\Schema(
+     *             type="integer",
+     *             example=123
+     *         )
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=200,
+     *         description="Article details retrieved successfully",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="data",
+     *                 ref="#/components/schemas/ArticleDetailsResource"
+     *             )
+     *         )
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=404,
+     *         description="Article not found",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 property="message",
+     *                 type="string",
+     *                 example="Article not found"
+     *             )
+     *         )
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 property="message",
+     *                 type="string",
+     *                 example="Unauthenticated."
+     *             )
+     *         )
+     *     )
+     * )
+     */
+    public function show(int $id): JsonResponse
+    {
+        $result = $this->articleService->getArticleDetails($id);
+
+        return ApiResponseHelper::sendResponse(new Result(ArticleDetailsResource::make($result)));
+    }
 
     /**
      * @OA\Post(
@@ -24,7 +89,7 @@ class ArticlesListController extends Controller
      *     operationId="getArticlesList",
      *     tags={"Articles"},
      *     summary="Get a list of articles with optional filters",
-     *     description="This endpoint returns a paginated list of articles based on optional filters like keywords, date, category, author, and source.",
+     *     description="This endpoint returns a paginated list of articles based on optional filters such as keywords, date, category, author, and source.",
      *     security={{"sanctum": {}}},
      *
      *     @OA\RequestBody(
@@ -49,19 +114,19 @@ class ArticlesListController extends Controller
      *                 example="2024-10-18"
      *             ),
      *             @OA\Property(
-     *                 property="category",
-     *                 type="string",
-     *                 description="Filter articles by category."
+     *                 property="category_id",
+     *                 type="integer",
+     *                 description="Filter articles by category ID."
      *             ),
      *             @OA\Property(
-     *                 property="author",
-     *                 type="string",
-     *                 description="Filter articles by author name."
+     *                 property="author_id",
+     *                 type="integer",
+     *                 description="Filter articles by author ID."
      *             ),
      *             @OA\Property(
-     *                 property="source",
-     *                 type="string",
-     *                 description="Filter articles by source."
+     *                 property="source_id",
+     *                 type="integer",
+     *                 description="Filter articles by source ID."
      *             )
      *         )
      *     ),
@@ -119,15 +184,15 @@ class ArticlesListController extends Controller
      *     )
      * )
      */
-    public function __invoke(GetArticlesListRequest $request): JsonResponse
+    public function index(GetArticlesListRequest $request): JsonResponse
     {
         /**
          * @var array{
          *     keywords:array<string> | null,
          *     date:string | null,
-         *     category:string | null,
-         *     author:string | null,
-         *     srouce:string |null
+         *     category_id:int | null,
+         *     author_id:int | null,
+         *     srouce_id:int |null
          * } $requestedFilterData
          */
         $requestedFilterData = $request->validated();

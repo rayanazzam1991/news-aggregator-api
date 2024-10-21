@@ -140,7 +140,7 @@ return [
 
     'model_locations' => [
         'app',
-        'Modules/Auth/app',
+        'Modules/*/app',
     ],
 
     /*

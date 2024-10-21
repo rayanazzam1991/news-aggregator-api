@@ -4,6 +4,9 @@ namespace Modules\Article\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Modules\Article\Models\Article;
+use Modules\Article\Models\Author;
+use Modules\Article\Models\Category;
+use Modules\Article\Models\Source;
 
 /**
  * @extends Factory<Article>
@@ -21,11 +24,17 @@ class ArticleFactory extends Factory
     {
         return [
             'title' => fake()->sentence,
-            'source' => fake()->company,
-            'category' => fake()->word,
-            'author' => fake()->name,
+            'source_id' => fn () => Source::query()->first()
+                ? Source::query()->first()->id
+                : Source::factory()->create()->id,
+            'category_id' => fn () => Category::query()->first()
+                ? Category::query()->first()->id
+                : Category::factory()->create()->id,
+            'author_id' => fn () => Author::query()->first()
+                ? Author::query()->first()->id
+                : Author::factory()->create()->id,
             'key_words' => implode(',', fake()->words(5)),
-            'summary' => fake()->paragraph,
+            'summary' => fake()->sentence,
             'image_url' => fake()->imageUrl,
             'news_url' => fake()->url,
             'meta' => json_encode([

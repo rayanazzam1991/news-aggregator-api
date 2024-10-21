@@ -39,6 +39,36 @@ use Modules\Auth\Database\Factories\UserFactory;
  * @method static Builder<static>|User whereRememberToken($value)
  * @method static Builder<static>|User whereUpdatedAt($value)
  *
+ * @property string|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
+ * @property-read int|null $tokens_count
+ *
+ * @method static \Modules\Auth\Database\Factories\UserFactory factory($count = null, $state = [])
+ * @method static Builder<static>|User newModelQuery()
+ * @method static Builder<static>|User newQuery()
+ * @method static Builder<static>|User query()
+ * @method static Builder<static>|User whereCreatedAt($value)
+ * @method static Builder<static>|User whereDeletedAt($value)
+ * @method static Builder<static>|User whereEmail($value)
+ * @method static Builder<static>|User whereEmailVerifiedAt($value)
+ * @method static Builder<static>|User whereId($value)
+ * @method static Builder<static>|User whereName($value)
+ * @method static Builder<static>|User wherePassword($value)
+ * @method static Builder<static>|User whereRememberToken($value)
+ * @method static Builder<static>|User whereUpdatedAt($value)
+ * @method static Builder<static>|User newModelQuery()
+ * @method static Builder<static>|User newQuery()
+ * @method static Builder<static>|User query()
+ * @method static Builder<static>|User whereCreatedAt($value)
+ * @method static Builder<static>|User whereDeletedAt($value)
+ * @method static Builder<static>|User whereEmail($value)
+ * @method static Builder<static>|User whereEmailVerifiedAt($value)
+ * @method static Builder<static>|User whereId($value)
+ * @method static Builder<static>|User whereName($value)
+ * @method static Builder<static>|User wherePassword($value)
+ * @method static Builder<static>|User whereRememberToken($value)
+ * @method static Builder<static>|User whereUpdatedAt($value)
+ *
  * @mixin Eloquent
  */
 class User extends Authenticatable

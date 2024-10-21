@@ -12,18 +12,18 @@ class ArticleSearchFilter extends Data
     public function __construct(
         public ?array $keywords,
         public ?string $date,
-        public ?string $category,
-        public ?string $author,
-        public ?string $source
+        public ?int $category_id,
+        public ?int $author_id,
+        public ?int $source_id
     ) {}
 
     /**
      * @param array{
      *     keywords:array<string> | null,
      *     date:string | null,
-     *     category:string | null,
-     *     source:string | null,
-     *     author:string | null
+     *     category_id:int | null,
+     *     source_id:int | null,
+     *     author_id:int | null
      * } $request
      */
     public static function fromRequest(array $request): ArticleSearchFilter
@@ -31,9 +31,9 @@ class ArticleSearchFilter extends Data
         return new self(
             keywords: $request['keywords'] ?? null,
             date: $request['date'] ?? null,
-            category: $request['category'] ?? null,
-            author: $request['author'] ?? null,
-            source: $request['source'] ?? null,
+            category_id: $request['category_id'] ?? null,
+            author_id: $request['author_id'] ?? null,
+            source_id: $request['source_id'] ?? null,
         );
 
     }

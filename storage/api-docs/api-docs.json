@@ -13,13 +13,89 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/v1/articles/show/{id}": {
+            "get": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Get article details by ID",
+                "description": "This endpoint returns the details of a specific article based on its ID.",
+                "operationId": "getArticleDetails",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the article to retrieve",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 123
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Article details retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/ArticleDetailsResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Article not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Article not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
         "/api/v1/articles/list": {
             "post": {
                 "tags": [
                     "Articles"
                 ],
                 "summary": "Get a list of articles with optional filters",
-                "description": "This endpoint returns a paginated list of articles based on optional filters like keywords, date, category, author, and source.",
+                "description": "This endpoint returns a paginated list of articles based on optional filters such as keywords, date, category, author, and source.",
                 "operationId": "getArticlesList",
                 "requestBody": {
                     "required": true,
@@ -40,17 +116,17 @@
                                         "format": "date",
                                         "example": "2024-10-18"
                                     },
-                                    "category": {
-                                        "description": "Filter articles by category.",
-                                        "type": "string"
+                                    "category_id": {
+                                        "description": "Filter articles by category ID.",
+                                        "type": "integer"
                                     },
-                                    "author": {
-                                        "description": "Filter articles by author name.",
-                                        "type": "string"
+                                    "author_id": {
+                                        "description": "Filter articles by author ID.",
+                                        "type": "integer"
                                     },
-                                    "source": {
-                                        "description": "Filter articles by source.",
-                                        "type": "string"
+                                    "source_id": {
+                                        "description": "Filter articles by source ID.",
+                                        "type": "integer"
                                     }
                                 },
                                 "type": "object"
@@ -123,6 +199,672 @@
                                 }
                             }
                         }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/authors": {
+            "get": {
+                "tags": [
+                    "Authors"
+                ],
+                "summary": "Get list of authors",
+                "description": "Retrieve a paginated list of all authors.",
+                "operationId": "getAuthorsList",
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/AuthorsListResource"
+                                            }
+                                        },
+                                        "pagination": {
+                                            "$ref": "#/components/schemas/PaginationResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Authors"
+                ],
+                "summary": "Create a new author",
+                "description": "Create a new author with a specified name.",
+                "operationId": "createAuthor",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "Name of the author",
+                                        "type": "string",
+                                        "example": "Technology"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Author created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Author created successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Validation Error"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/authors/{id}": {
+            "put": {
+                "tags": [
+                    "Authors"
+                ],
+                "summary": "Update an existing author",
+                "description": "Update the name or status of a author by its ID.",
+                "operationId": "updateAuthor",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Author ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "Name of the author",
+                                        "type": "string",
+                                        "example": "New Author Name",
+                                        "nullable": true
+                                    },
+                                    "status": {
+                                        "description": "Status of the author",
+                                        "type": "integer",
+                                        "example": 1,
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Author updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Author updated successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Author not found"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Authors"
+                ],
+                "summary": "Delete a author",
+                "description": "Delete a author by its ID.",
+                "operationId": "deleteAuthor",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Author ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Author deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Author deleted successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Author not found"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/categories": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Get list of categories",
+                "description": "Retrieve a paginated list of all categories.",
+                "operationId": "getCategoriesList",
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/CategoriesListResource"
+                                            }
+                                        },
+                                        "pagination": {
+                                            "$ref": "#/components/schemas/PaginationResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Create a new category",
+                "description": "Create a new category with a specified name.",
+                "operationId": "createCategory",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "Name of the category",
+                                        "type": "string",
+                                        "example": "Technology"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Category created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Category created successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Validation Error"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/categories/{id}": {
+            "put": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Update an existing category",
+                "description": "Update the name or status of a category by its ID.",
+                "operationId": "updateCategory",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Category ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "Name of the category",
+                                        "type": "string",
+                                        "example": "New Category Name",
+                                        "nullable": true
+                                    },
+                                    "status": {
+                                        "description": "Status of the category",
+                                        "type": "integer",
+                                        "example": 1,
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Category updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Category updated successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Category not found"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Delete a category",
+                "description": "Delete a category by its ID.",
+                "operationId": "deleteCategory",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Category ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Category deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Category deleted successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Category not found"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/sources": {
+            "get": {
+                "tags": [
+                    "Sources"
+                ],
+                "summary": "Get list of sources",
+                "description": "Retrieve a paginated list of all sources.",
+                "operationId": "getSourcesList",
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/SourcesListResource"
+                                            }
+                                        },
+                                        "pagination": {
+                                            "$ref": "#/components/schemas/PaginationResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Sources"
+                ],
+                "summary": "Create a new source",
+                "description": "Create a new source with a specified name.",
+                "operationId": "createSource",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "Name of the source",
+                                        "type": "string",
+                                        "example": "Technology"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Source created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Source created successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Validation Error"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/sources/{id}": {
+            "put": {
+                "tags": [
+                    "Sources"
+                ],
+                "summary": "Update an existing source",
+                "description": "Update the name or status of a source by its ID.",
+                "operationId": "updateSource",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Source ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "Name of the source",
+                                        "type": "string",
+                                        "example": "New Source Name",
+                                        "nullable": true
+                                    },
+                                    "status": {
+                                        "description": "Status of the source",
+                                        "type": "integer",
+                                        "example": 1,
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Source updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Source updated successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Source not found"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Sources"
+                ],
+                "summary": "Delete a source",
+                "description": "Delete a source by its ID.",
+                "operationId": "deleteSource",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Source ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Source deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Source deleted successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Source not found"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
                     }
                 },
                 "security": [
@@ -681,6 +1423,74 @@
                 },
                 "type": "object"
             },
+            "AuthorDetailsResource": {
+                "title": "Author Details Resource",
+                "description": "Full details of an author.",
+                "properties": {
+                    "id": {
+                        "description": "Unique identifier of the author.",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "description": "Name of the author.",
+                        "type": "string",
+                        "example": "John Doe"
+                    }
+                },
+                "type": "object"
+            },
+            "AuthorsListResource": {
+                "title": "Authors List Resource",
+                "description": "A minimal representation of an author for listing purposes.",
+                "properties": {
+                    "id": {
+                        "description": "Unique identifier of the author.",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "description": "Name of the author.",
+                        "type": "string",
+                        "example": "John Doe"
+                    }
+                },
+                "type": "object"
+            },
+            "CategoriesListResource": {
+                "title": "Categories List Resource",
+                "description": "A minimal representation of a category for listing purposes.",
+                "properties": {
+                    "id": {
+                        "description": "Unique identifier of the category.",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "description": "Name of the category.",
+                        "type": "string",
+                        "example": "Technology"
+                    }
+                },
+                "type": "object"
+            },
+            "CategoryDetailsResource": {
+                "title": "Category Details Resource",
+                "description": "Full details of a category.",
+                "properties": {
+                    "id": {
+                        "description": "Unique identifier of the category.",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "description": "Name of the category.",
+                        "type": "string",
+                        "example": "Technology"
+                    }
+                },
+                "type": "object"
+            },
             "PaginationResource": {
                 "title": "Pagination Resource",
                 "description": "Pagination details for paginated API responses.",
@@ -709,6 +1519,40 @@
                         "description": "Maximum number of pages available.",
                         "type": "integer",
                         "example": 10
+                    }
+                },
+                "type": "object"
+            },
+            "SourceDetailsResource": {
+                "title": "Source Details Resource",
+                "description": "Full details of a source.",
+                "properties": {
+                    "id": {
+                        "description": "Unique identifier of the source.",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "description": "Name of the source.",
+                        "type": "string",
+                        "example": "BBC News"
+                    }
+                },
+                "type": "object"
+            },
+            "SourcesListResource": {
+                "title": "Source List Resource",
+                "description": "Basic details of a source.",
+                "properties": {
+                    "id": {
+                        "description": "Unique identifier of the source.",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "description": "Name of the source.",
+                        "type": "string",
+                        "example": "New York Times"
                     }
                 },
                 "type": "object"
@@ -754,6 +1598,18 @@
         {
             "name": "Articles",
             "description": "Articles"
+        },
+        {
+            "name": "Authors",
+            "description": "Authors"
+        },
+        {
+            "name": "Categories",
+            "description": "Categories"
+        },
+        {
+            "name": "Sources",
+            "description": "Sources"
         },
         {
             "name": "Authentication",

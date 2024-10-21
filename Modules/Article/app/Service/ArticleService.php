@@ -2,7 +2,10 @@
 
 namespace Modules\Article\Service;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Model;
 use Modules\Article\Filter\ArticleSearchFilter;
+use Modules\Article\Models\Article;
 use Modules\Article\Repository\ArticleRepository;
 
 readonly class ArticleService
@@ -11,12 +14,15 @@ readonly class ArticleService
         private ArticleRepository $articleRepository
     ) {}
 
-    public function getArticlesList(ArticleSearchFilter $filter)
+    /**
+     * @return LengthAwarePaginator<Article>
+     */
+    public function getArticlesList(ArticleSearchFilter $filter): LengthAwarePaginator
     {
         return $this->articleRepository->search($filter->toArray());
     }
 
-    public function getArticleDetails(int $id)
+    public function getArticleDetails(int $id): Model
     {
         return $this->articleRepository->show($id);
     }

@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Article\Http\Controllers\ArticleDetailsController;
-use Modules\Article\Http\Controllers\ArticlesListController;
+use Modules\Article\Http\Controllers\ArticleController;
+use Modules\Article\Http\Controllers\AuthorController;
+use Modules\Article\Http\Controllers\CategoryController;
+use Modules\Article\Http\Controllers\SourceController;
 
 /*
  *--------------------------------------------------------------------------
@@ -15,7 +17,15 @@ use Modules\Article\Http\Controllers\ArticlesListController;
  *
 */
 
-Route::middleware(['auth:sanctum'])->prefix('v1/articles')->group(function () {
-    Route::post('/list', ArticlesListController::class);
-    Route::get('/{id}', ArticleDetailsController::class);
+Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
+
+    Route::group(['prefix' => 'articles'], function () {
+        Route::post('/list', [ArticleController::class, 'index']);
+        Route::get('/show/{id}', [ArticleController::class, 'show']);
+    });
+
+    Route::apiResource('categories', CategoryController::class);
+    Route::apiResource('authors', AuthorController::class);
+    Route::apiResource('sources', SourceController::class);
+
 });

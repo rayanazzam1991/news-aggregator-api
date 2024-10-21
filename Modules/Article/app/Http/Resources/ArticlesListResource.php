@@ -4,6 +4,9 @@ namespace Modules\Article\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Modules\Article\Models\Author;
+use Modules\Article\Models\Category;
+use Modules\Article\Models\Source;
 
 /**
  * @OA\Schema(
@@ -56,9 +59,9 @@ use Illuminate\Http\Resources\Json\JsonResource;
  *
  * @property int $id
  * @property string $title
- * @property string $source
- * @property string $author
- * @property string $category
+ * @property Source $source
+ * @property Author|null $author
+ * @property Category|null $category
  * @property array<string> $key_words
  */
 class ArticlesListResource extends JsonResource
@@ -73,9 +76,9 @@ class ArticlesListResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'source' => $this->source,
-            'author' => $this->author,
-            'category' => $this->category,
+            'source' => $this->source->name,
+            'author' => $this->author?->name,
+            'category' => $this->category?->name,
             'key_words' => $this->key_words,
         ];
     }

@@ -4,8 +4,10 @@ namespace Modules\Article\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use Modules\Article\Enums\AuthorActiveStatusEnum;
 
-class GetArticlesListRequest extends FormRequest
+class StoreAuthorRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -15,11 +17,8 @@ class GetArticlesListRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'keywords' => ['sometimes', 'array'],
-            'date' => ['sometimes', 'date'],
-            'author_id' => ['sometimes', 'integer', 'exists:authors,id'],
-            'category_id' => ['sometimes', 'integer', 'exists:categories,id'],
-            'source_id' => ['sometimes', 'integer', 'exists:sources,id'],
+            'name' => ['required'],
+            'status' => ['sometimes', Rule::in(AuthorActiveStatusEnum::values())],
         ];
     }
 

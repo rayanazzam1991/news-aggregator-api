@@ -1,0 +1,11 @@
+{
+    "name": "UserPreferences",
+    "alias": "userpreferences",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\UserPreferences\\Providers\\UserPreferencesServiceProvider"
+    ],
+    "files": []
+}

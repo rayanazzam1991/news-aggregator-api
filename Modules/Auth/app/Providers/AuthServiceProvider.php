@@ -4,6 +4,8 @@ namespace Modules\Auth\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Modules\Auth\Contracts\UserPublicInterface;
+use Modules\Auth\Service\UserPublicService;
 use Nwidart\Modules\Traits\PathNamespace;
 
 class AuthServiceProvider extends ServiceProvider
@@ -34,6 +36,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
+
+        // bind public api interfaces
+        $this->app->bind(UserPublicInterface::class,UserPublicService::class);
     }
 
     /**

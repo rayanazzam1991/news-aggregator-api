@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/userpreferences",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\UserPreferences\\": "app/",
+            "Modules\\UserPreferences\\Database\\Factories\\": "database/factories/",
+            "Modules\\UserPreferences\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\UserPreferences\\Tests\\": "tests/"
+        }
+    }
+}

@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Article\Http\Resources;
+namespace App\Helpers\ApiResponse;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 

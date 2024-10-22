@@ -3,6 +3,7 @@
 namespace Modules\Article\Http\Controllers;
 
 use App\Helpers\ApiResponse\ApiResponseHelper;
+use App\Helpers\ApiResponse\PaginationResource;
 use App\Helpers\ApiResponse\Result;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
@@ -10,7 +11,6 @@ use Modules\Article\Filter\ArticleSearchFilter;
 use Modules\Article\Http\Requests\GetArticlesListRequest;
 use Modules\Article\Http\Resources\ArticleDetailsResource;
 use Modules\Article\Http\Resources\ArticlesListResource;
-use Modules\Article\Http\Resources\PaginationResource;
 use Modules\Article\Service\ArticleService;
 
 class ArticleController extends Controller

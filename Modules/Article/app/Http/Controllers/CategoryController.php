@@ -3,6 +3,7 @@
 namespace Modules\Article\Http\Controllers;
 
 use App\Helpers\ApiResponse\ApiResponseHelper;
+use App\Helpers\ApiResponse\PaginationResource;
 use App\Helpers\ApiResponse\Result;
 use App\Helpers\ApiResponse\SuccessResult;
 use App\Http\Controllers\Controller;
@@ -10,7 +11,6 @@ use Illuminate\Http\JsonResponse;
 use Modules\Article\Http\Requests\StoreCategoryRequest;
 use Modules\Article\Http\Requests\UpdateCategoryRequest;
 use Modules\Article\Http\Resources\CategoriesListResource;
-use Modules\Article\Http\Resources\PaginationResource;
 use Modules\Article\Service\CategoryService;
 
 class CategoryController extends Controller

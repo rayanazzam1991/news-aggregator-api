@@ -1,20 +1,18 @@
 <?php
 
-namespace Modules\Article\Providers;
+namespace Modules\UserPreferences\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use Modules\Article\Contracts\PreferencePublicInterface;
-use Modules\Article\Service\PreferencePublicService;
 use Nwidart\Modules\Traits\PathNamespace;
 
-class ArticleServiceProvider extends ServiceProvider
+class UserPreferencesServiceProvider extends ServiceProvider
 {
     use PathNamespace;
 
-    protected string $name = 'Article';
+    protected string $name = 'UserPreferences';
 
-    protected string $nameLower = 'article';
+    protected string $nameLower = 'userpreferences';
 
     /**
      * Boot the application events.
@@ -36,9 +34,6 @@ class ArticleServiceProvider extends ServiceProvider
     {
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
-
-        // bind public api interfaces
-        $this->app->bind(PreferencePublicInterface::class,PreferencePublicService::class);
     }
 
     /**

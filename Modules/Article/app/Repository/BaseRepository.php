@@ -100,4 +100,9 @@ abstract class BaseRepository
         $record = $this->model::query()->findOrFail($id);
         $record->delete();
     }
+
+    public function exists(int $id): bool
+    {
+        return $this->model::query()->find($id) !== null;
+    }
 }

@@ -3,6 +3,7 @@
 namespace Modules\Article\Http\Controllers;
 
 use App\Helpers\ApiResponse\ApiResponseHelper;
+use App\Helpers\ApiResponse\PaginationResource;
 use App\Helpers\ApiResponse\Result;
 use App\Helpers\ApiResponse\SuccessResult;
 use App\Http\Controllers\Controller;
@@ -10,7 +11,6 @@ use Illuminate\Http\JsonResponse;
 use Modules\Article\Http\Requests\StoreAuthorRequest;
 use Modules\Article\Http\Requests\UpdateAuthorRequest;
 use Modules\Article\Http\Resources\AuthorsListResource;
-use Modules\Article\Http\Resources\PaginationResource;
 use Modules\Article\Service\AuthorService;
 
 class AuthorController extends Controller

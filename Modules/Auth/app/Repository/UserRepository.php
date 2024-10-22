@@ -2,10 +2,17 @@
 
 namespace Modules\Auth\Repository;
 
+use Modules\Article\Repository\BaseRepository;
 use Modules\Auth\Models\User;
 
-class UserRepository
+class UserRepository extends BaseRepository
 {
+
+    public function model(): string
+    {
+        return User::class;
+    }
+
     /**
      * @param array{
      *    name:string,
@@ -22,4 +29,6 @@ class UserRepository
     {
         return User::query()->where('email', $email)->first();
     }
+
+
 }

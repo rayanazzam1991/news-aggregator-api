@@ -23,9 +23,8 @@ class UserPreferenceFactory extends Factory
     {
         return [
             'user_id' => fake()->randomNumber(),
-            'preference_id' => fake()->randomNumber(),
-            'preference_type' => fake()->randomElement(PreferenceTypesEnum::values())
+            'preference_id' => fake()->randomNumber(nbDigits: 2),
+            'preference_type' => fake()->randomElement(PreferenceTypesEnum::values()),
         ];
     }
 }
-

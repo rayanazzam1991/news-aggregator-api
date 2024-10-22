@@ -38,7 +38,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->app->register(RouteServiceProvider::class);
 
         // bind public api interfaces
-        $this->app->bind(UserPublicInterface::class,UserPublicService::class);
+        $this->app->bind(UserPublicInterface::class, UserPublicService::class);
     }
 
     /**

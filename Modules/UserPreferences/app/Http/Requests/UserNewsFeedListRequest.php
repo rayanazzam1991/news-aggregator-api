@@ -5,7 +5,7 @@ namespace Modules\UserPreferences\Http\Requests;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreUserPreferenceRequest extends FormRequest
+class UserNewsFeedListRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -16,8 +16,6 @@ class StoreUserPreferenceRequest extends FormRequest
     {
         return [
             'user_id' => ['required', 'integer'],
-            'preference_id' => ['required', 'integer'],
-            'preference_type' => ['required', 'string'],
         ];
     }
 

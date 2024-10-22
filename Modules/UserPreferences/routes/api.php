@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Modules\UserPreferences\Http\Controllers\UserPreferenceFeedController;
 use Modules\UserPreferences\Http\Controllers\UserPreferencesController;
 
 /*
@@ -16,7 +17,9 @@ use Modules\UserPreferences\Http\Controllers\UserPreferencesController;
 
 Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
     Route::apiResource('userPreferences', UserPreferencesController::class)->names('userPreferences');
+
     Route::group(['prefix' => 'userPreferences'], function () {
-        Route::post('list', [UserPreferencesController::class,'list']);
+        Route::post('list', [UserPreferencesController::class, 'list']);
+        Route::post('feed', UserPreferenceFeedController::class);
     });
 });

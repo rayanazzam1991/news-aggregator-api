@@ -7,7 +7,6 @@ use Modules\Auth\Models\User;
 
 class UserRepository extends BaseRepository
 {
-
     public function model(): string
     {
         return User::class;
@@ -29,6 +28,4 @@ class UserRepository extends BaseRepository
     {
         return User::query()->where('email', $email)->first();
     }
-
-
 }

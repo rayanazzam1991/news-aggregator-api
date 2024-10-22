@@ -10,6 +10,4 @@ class AuthorRepository extends BaseRepository
     {
         return Author::class;
     }
-
-
 }

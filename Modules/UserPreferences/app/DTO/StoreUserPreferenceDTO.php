@@ -7,12 +7,10 @@ use Spatie\LaravelData\Data;
 class StoreUserPreferenceDTO extends Data
 {
     public function __construct(
-        public int    $user_id,
-        public int    $preference_id,
+        public int $user_id,
+        public int $preference_id,
         public string $preference_type,
-    )
-    {
-    }
+    ) {}
 
     public static function fromRequest(array $request): StoreUserPreferenceDTO
     {
@@ -22,5 +20,4 @@ class StoreUserPreferenceDTO extends Data
             preference_type: $request['preference_type']
         );
     }
-
 }

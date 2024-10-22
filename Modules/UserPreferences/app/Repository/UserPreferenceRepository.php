@@ -4,19 +4,18 @@ namespace Modules\UserPreferences\Repository;
 
 use App\Enum\GeneralParamsEnum;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
 use Modules\Article\Repository\BaseRepository;
 use Modules\UserPreferences\Models\UserPreference;
 
 class UserPreferenceRepository extends BaseRepository
 {
-
-
     public function model(): string
     {
         return UserPreference::class;
     }
 
-    public function search(int $userId): LengthAwarePaginator
+    public function searchWithPaginate(int $userId): LengthAwarePaginator
     {
         return $this->model::query()
             ->where(
@@ -24,5 +23,16 @@ class UserPreferenceRepository extends BaseRepository
                 operator: '=',
                 value: $userId)
             ->paginate(perPage: GeneralParamsEnum::PAGINATION_LIMIT->value);
+    }
+
+    public function searchAll(int $userId, int $limit): Collection
+    {
+        return $this->model::query()
+            ->where(
+                column: 'user_id',
+                operator: '=',
+                value: $userId)
+            ->limit($limit)
+            ->get();
     }
 }

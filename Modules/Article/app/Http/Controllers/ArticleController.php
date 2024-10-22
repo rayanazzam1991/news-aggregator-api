@@ -33,6 +33,7 @@ class ArticleController extends Controller
      *         in="path",
      *         required=true,
      *         description="ID of the article to retrieve",
+     *
      *         @OA\Schema(
      *             type="integer",
      *             example=123
@@ -42,8 +43,10 @@ class ArticleController extends Controller
      *     @OA\Response(
      *         response=200,
      *         description="Article details retrieved successfully",
+     *
      *         @OA\JsonContent(
      *             type="object",
+     *
      *             @OA\Property(
      *                 property="data",
      *                 ref="#/components/schemas/ArticleDetailsResource"
@@ -54,7 +57,9 @@ class ArticleController extends Controller
      *     @OA\Response(
      *         response=404,
      *         description="Article not found",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(
      *                 property="message",
      *                 type="string",
@@ -66,7 +71,9 @@ class ArticleController extends Controller
      *     @OA\Response(
      *         response=401,
      *         description="Unauthorized",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(
      *                 property="message",
      *                 type="string",
@@ -184,7 +191,7 @@ class ArticleController extends Controller
      *     )
      * )
      */
-    public function index(GetArticlesListRequest $request): JsonResponse
+    public function list(GetArticlesListRequest $request): JsonResponse
     {
         /**
          * @var array{

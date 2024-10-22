@@ -3,8 +3,10 @@
 namespace Modules\Article\Repository;
 
 use App\Enum\GeneralParamsEnum;
+use Exception;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -63,6 +65,14 @@ abstract class BaseRepository
     public function list(): LengthAwarePaginator
     {
         return $this->model::query()->paginate(GeneralParamsEnum::PAGINATION_LIMIT->value);
+    }
+
+    /**
+     * Get a paginated list of the model.
+     */
+    public function getAll(): Collection
+    {
+        return $this->model::query()->get();
     }
 
     /**

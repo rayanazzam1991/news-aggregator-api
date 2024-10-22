@@ -22,7 +22,7 @@ class UserPreferencesListResource extends JsonResource
         return [
             'id' => $this->id,
             'preference_type_name' => $this->preferenceType,
-            'preference_value' => $this->preferenceValue
+            'preference_value' => $this->preferenceValue,
         ];
     }
 }

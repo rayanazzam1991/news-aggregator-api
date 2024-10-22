@@ -26,11 +26,8 @@ class UserPreference extends Model
      */
     protected $guarded = [];
 
-     protected static function newFactory(): UserPreferenceFactory
-     {
-          return UserPreferenceFactory::new();
-     }
-
-
-
+    protected static function newFactory(): UserPreferenceFactory
+    {
+        return UserPreferenceFactory::new();
+    }
 }

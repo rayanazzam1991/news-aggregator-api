@@ -8,11 +8,9 @@ use Modules\Auth\Repository\UserRepository;
 
 readonly class UserPublicService implements UserPublicInterface
 {
-
     public function __construct(
         private UserRepository $userRepository
-    )
-    {}
+    ) {}
 
     public function validateUser(int $userId): bool
     {

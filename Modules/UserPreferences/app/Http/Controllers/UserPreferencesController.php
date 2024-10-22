@@ -17,13 +17,9 @@ use Modules\UserPreferences\Service\UserPreferenceService;
 
 class UserPreferencesController extends Controller
 {
-
     public function __construct(
         private readonly UserPreferenceService $preferenceService
-    )
-    {
-
-    }
+    ) {}
 
     public function list(UserPreferenceListRequest $request): JsonResponse
     {
@@ -56,15 +52,14 @@ class UserPreferencesController extends Controller
          */
         $dataFromRequest = $request->validated();
         $this->preferenceService->storeUserPreference(StoreUserPreferenceDTO::fromRequest($dataFromRequest));
-        return ApiResponseHelper::sendSuccessResponse(new SuccessResult("UserPreference created successfully"));
+
+        return ApiResponseHelper::sendSuccessResponse(new SuccessResult('UserPreference created successfully'));
     }
 
     /**
      * Show the specified resource.
      */
-    public function show($id)
-    {
-    }
+    public function show($id) {}
 
     /**
      * Update the specified resource in storage.

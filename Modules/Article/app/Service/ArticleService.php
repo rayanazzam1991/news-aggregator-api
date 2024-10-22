@@ -19,7 +19,7 @@ readonly class ArticleService
      */
     public function getArticlesList(ArticleSearchFilter $filter): LengthAwarePaginator
     {
-        return $this->articleRepository->search($filter->toArray());
+        return $this->articleRepository->searchWithPagination($filter);
     }
 
     public function getArticleDetails(int $id): Model

@@ -20,7 +20,7 @@ use Modules\Article\Http\Controllers\SourceController;
 Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
 
     Route::group(['prefix' => 'articles'], function () {
-        Route::post('/list', [ArticleController::class, 'index']);
+        Route::post('/list', [ArticleController::class, 'list']);
         Route::get('/show/{id}', [ArticleController::class, 'show']);
     });
 

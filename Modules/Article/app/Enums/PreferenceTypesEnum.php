@@ -4,7 +4,7 @@ namespace Modules\Article\Enums;
 
 use App\Traits\EnumValues;
 
-enum PreferenceTypesEnum :string
+enum PreferenceTypesEnum: string
 {
     use EnumValues;
     case AUTHOR = 'author';

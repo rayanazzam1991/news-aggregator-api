@@ -4,7 +4,9 @@ namespace Modules\Article\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Modules\Article\Contracts\NewsFeedPublicInterface;
 use Modules\Article\Contracts\PreferencePublicInterface;
+use Modules\Article\Service\NewsFeedPublicService;
 use Modules\Article\Service\PreferencePublicService;
 use Nwidart\Modules\Traits\PathNamespace;
 
@@ -38,7 +40,8 @@ class ArticleServiceProvider extends ServiceProvider
         $this->app->register(RouteServiceProvider::class);
 
         // bind public api interfaces
-        $this->app->bind(PreferencePublicInterface::class,PreferencePublicService::class);
+        $this->app->bind(PreferencePublicInterface::class, PreferencePublicService::class);
+        $this->app->bind(NewsFeedPublicInterface::class, NewsFeedPublicService::class);
     }
 
     /**

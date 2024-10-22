@@ -1304,6 +1304,275 @@
                     }
                 ]
             }
+        },
+        "/api/v1/userPreferences/feed": {
+            "get": {
+                "tags": [
+                    "User News Feed"
+                ],
+                "summary": "Fetch user-specific news feed",
+                "description": "Retrieve a paginated list of news articles based on the user's preferences.",
+                "operationId": "getUserNewsFeed",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "description": "The ID of the user whose news feed is being fetched.",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 123
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User news feed successfully retrieved",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "result": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/UserPreferenceFeedListResource"
+                                            }
+                                        },
+                                        "paginate": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 100
+                                                },
+                                                "per_page": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "last_page": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "from": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "to": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "An internal error occurred."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/userPreferences/list": {
+            "post": {
+                "tags": [
+                    "User Preferences"
+                ],
+                "summary": "Get list of user preferences",
+                "description": "Returns a paginated list of user preferences for a given user.",
+                "operationId": "listUserPreferences",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "user_id"
+                                ],
+                                "properties": {
+                                    "user_id": {
+                                        "description": "ID of the user",
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "result": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/UserPreferencesListResource"
+                                            }
+                                        },
+                                        "paginate": {
+                                            "$ref": "#/components/schemas/PaginationResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/userPreferences": {
+            "post": {
+                "tags": [
+                    "User Preferences"
+                ],
+                "summary": "Store a user preference",
+                "description": "Creates a new user preference with a specified type and value",
+                "operationId": "storeUserPreference",
+                "requestBody": {
+                    "description": "User preference details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "user_id",
+                                    "preference_id",
+                                    "preference_type"
+                                ],
+                                "properties": {
+                                    "user_id": {
+                                        "description": "ID of the user",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "preference_id": {
+                                        "description": "ID of the preference",
+                                        "type": "integer",
+                                        "example": 5
+                                    },
+                                    "preference_type": {
+                                        "description": "Type of the preference",
+                                        "type": "string",
+                                        "example": "category"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "UserPreference created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "UserPreference created successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -1491,38 +1760,6 @@
                 },
                 "type": "object"
             },
-            "PaginationResource": {
-                "title": "Pagination Resource",
-                "description": "Pagination details for paginated API responses.",
-                "properties": {
-                    "total": {
-                        "description": "Total number of items available.",
-                        "type": "integer",
-                        "example": 100
-                    },
-                    "count": {
-                        "description": "Number of items on the current page.",
-                        "type": "integer",
-                        "example": 10
-                    },
-                    "per_page": {
-                        "description": "Number of items per page.",
-                        "type": "integer",
-                        "example": 10
-                    },
-                    "page": {
-                        "description": "Current page number.",
-                        "type": "integer",
-                        "example": 1
-                    },
-                    "max_page": {
-                        "description": "Maximum number of pages available.",
-                        "type": "integer",
-                        "example": 10
-                    }
-                },
-                "type": "object"
-            },
             "SourceDetailsResource": {
                 "title": "Source Details Resource",
                 "description": "Full details of a source.",
@@ -1583,6 +1820,102 @@
                     }
                 },
                 "type": "object"
+            },
+            "UserPreferenceFeedListResource": {
+                "title": "User Preference Feed List Resource",
+                "description": "Represents a news article based on user preferences",
+                "properties": {
+                    "id": {
+                        "description": "ID of the article",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "title": {
+                        "description": "Title of the article",
+                        "type": "string",
+                        "example": "Breaking News: Major Event Happening Now"
+                    },
+                    "source": {
+                        "description": "Name of the article source",
+                        "type": "string",
+                        "example": "New York Times"
+                    },
+                    "author": {
+                        "description": "Name of the author",
+                        "type": "string",
+                        "example": "John Doe",
+                        "nullable": true
+                    },
+                    "category": {
+                        "description": "Category of the article",
+                        "type": "string",
+                        "example": "World News",
+                        "nullable": true
+                    },
+                    "key_words": {
+                        "description": "Array of keywords related to the article",
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "example": "breaking,world,event"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "UserPreferencesListResource": {
+                "title": "User Preferences List Resource",
+                "description": "Represents a user preference with type and value",
+                "properties": {
+                    "id": {
+                        "description": "ID of the preference",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "preference_type_name": {
+                        "description": "Type name of the preference",
+                        "type": "string",
+                        "example": "category"
+                    },
+                    "preference_value": {
+                        "description": "Value of the preference",
+                        "type": "string",
+                        "example": "Technology"
+                    }
+                },
+                "type": "object"
+            },
+            "PaginationResource": {
+                "title": "Pagination Resource",
+                "description": "Pagination details for paginated API responses.",
+                "properties": {
+                    "total": {
+                        "description": "Total number of items available.",
+                        "type": "integer",
+                        "example": 100
+                    },
+                    "count": {
+                        "description": "Number of items on the current page.",
+                        "type": "integer",
+                        "example": 10
+                    },
+                    "per_page": {
+                        "description": "Number of items per page.",
+                        "type": "integer",
+                        "example": 10
+                    },
+                    "page": {
+                        "description": "Current page number.",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "max_page": {
+                        "description": "Maximum number of pages available.",
+                        "type": "integer",
+                        "example": 10
+                    }
+                },
+                "type": "object"
             }
         },
         "securitySchemes": {
@@ -1614,6 +1947,14 @@
         {
             "name": "Authentication",
             "description": "Authentication"
+        },
+        {
+            "name": "User News Feed",
+            "description": "User News Feed"
+        },
+        {
+            "name": "User Preferences",
+            "description": "User Preferences"
         }
     ]
 }

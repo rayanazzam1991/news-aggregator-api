@@ -21,6 +21,54 @@ class UserPreferencesController extends Controller
         private readonly UserPreferenceService $preferenceService
     ) {}
 
+    /**
+     * @OA\Post(
+     *     path="/api/v1/userPreferences/list",
+     *     operationId="listUserPreferences",
+     *     tags={"User Preferences"},
+     *     summary="Get list of user preferences",
+     *     description="Returns a paginated list of user preferences for a given user.",
+     *
+     *     @OA\RequestBody(
+     *         required=true,
+     *
+     *         @OA\JsonContent(
+     *             type="object",
+     *             required={"user_id"},
+     *
+     *             @OA\Property(
+     *                 property="user_id",
+     *                 type="integer",
+     *                 description="ID of the user",
+     *                 example=1
+     *             )
+     *         )
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *
+     *         @OA\JsonContent(
+     *             type="object",
+     *
+     *             @OA\Property(property="result", type="array", @OA\Items(ref="#/components/schemas/UserPreferencesListResource")),
+     *             @OA\Property(property="paginate", ref="#/components/schemas/PaginationResource")
+     *         )
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validation error",
+     *
+     *         @OA\JsonContent(
+     *             type="object",
+     *
+     *             @OA\Property(property="message", type="string", example="The given data was invalid.")
+     *         )
+     *     )
+     * )
+     */
     public function list(UserPreferenceListRequest $request): JsonResponse
     {
         /**
@@ -38,7 +86,58 @@ class UserPreferencesController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     *     path="/api/v1/userPreferences",
+     *     operationId="storeUserPreference",
+     *     tags={"User Preferences"},
+     *     summary="Store a user preference",
+     *     description="Creates a new user preference with a specified type and value",
+     *
+     *     @OA\RequestBody(
+     *         required=true,
+     *         description="User preference details",
+     *
+     *         @OA\JsonContent(
+     *             type="object",
+     *             required={"user_id", "preference_id", "preference_type"},
+     *
+     *             @OA\Property(property="user_id", type="integer", description="ID of the user", example=1),
+     *             @OA\Property(property="preference_id", type="integer", description="ID of the preference", example=5),
+     *             @OA\Property(property="preference_type", type="string", description="Type of the preference", example="category")
+     *         )
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=200,
+     *         description="UserPreference created successfully",
+     *
+     *         @OA\JsonContent(
+     *             type="object",
+     *
+     *             @OA\Property(
+     *                 property="success",
+     *                 type="boolean",
+     *                 example=true
+     *             ),
+     *             @OA\Property(
+     *                 property="message",
+     *                 type="string",
+     *                 example="UserPreference created successfully"
+     *             )
+     *         )
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validation error",
+     *
+     *         @OA\JsonContent(
+     *             type="object",
+     *
+     *             @OA\Property(property="message", type="string", example="The given data was invalid.")
+     *         )
+     *     )
+     * )
      */
     public function store(StoreUserPreferenceRequest $request): JsonResponse
     {

@@ -49,7 +49,7 @@ Thank you for taking the time to explore my work!
     ```
 5. **Run Migrations**:
     ```bash
-    sail artisan migrate
+    sail artisan migrate:fresh --seed
     ```
 
 # QA and Testing

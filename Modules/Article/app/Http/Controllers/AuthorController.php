@@ -21,7 +21,7 @@ class AuthorController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/authors",
+     *     path="/api/v1/authors",
      *     operationId="getAuthorsList",
      *     tags={"Authors"},
      *     summary="Get list of authors",
@@ -59,7 +59,7 @@ class AuthorController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/authors",
+     *     path="/api/v1/authors",
      *     operationId="createAuthor",
      *     tags={"Authors"},
      *     summary="Create a new author",
@@ -116,7 +116,7 @@ class AuthorController extends Controller
 
     /**
      * @OA\Put(
-     *     path="/authors/{id}",
+     *     path="/api/v1/authors/{id}",
      *     operationId="updateAuthor",
      *     tags={"Authors"},
      *     summary="Update an existing author",
@@ -178,7 +178,7 @@ class AuthorController extends Controller
 
     /**
      * @OA\Delete(
-     *     path="/authors/{id}",
+     *     path="/api/v1/authors/{id}",
      *     operationId="deleteAuthor",
      *     tags={"Authors"},
      *     summary="Delete a author",

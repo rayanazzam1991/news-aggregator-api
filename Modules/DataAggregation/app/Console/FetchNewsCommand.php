@@ -33,8 +33,8 @@ class FetchNewsCommand extends Command
      */
     public function handle()
     {
-        //        FetchNewsJob::dispatch(NewsSourcesEnum::NEW_YORK_TIMES->value);
-        //        FetchNewsJob::dispatch(NewsSourcesEnum::GUARDIAN->value);
+        //        SendResetPasswordEmailJob::dispatch(NewsSourcesEnum::NEW_YORK_TIMES->value);
+        //        SendResetPasswordEmailJob::dispatch(NewsSourcesEnum::GUARDIAN->value);
         FetchNewsJob::dispatch(NewsSourcesEnum::NEWS_API->value);
     }
 

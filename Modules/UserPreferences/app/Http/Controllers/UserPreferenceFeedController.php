@@ -24,6 +24,7 @@ class UserPreferenceFeedController extends Controller
      *     tags={"User News Feed"},
      *     summary="Fetch user-specific news feed",
      *     description="Retrieve a paginated list of news articles based on the user's preferences.",
+     *     security={{"sanctum": {}}},
      *
      *     @OA\Parameter(
      *         name="user_id",
@@ -33,7 +34,7 @@ class UserPreferenceFeedController extends Controller
      *
      *         @OA\Schema(
      *             type="integer",
-     *             example=123
+     *             example=1
      *         )
      *     ),
      *

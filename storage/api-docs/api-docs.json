@@ -1,10 +1,10 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "L5 OpenApi",
-        "description": "L5 Swagger OpenApi description",
+        "title": "News Aggregator OpenApi",
+        "description": "Test your Apis with a full documentation.",
         "contact": {
-            "email": "darius@matulionis.lt"
+            "email": "rayanwork2014@gmail.com"
         },
         "license": {
             "name": "Apache 2.0",
@@ -208,7 +208,7 @@
                 ]
             }
         },
-        "/authors": {
+        "/api/v1/authors": {
             "get": {
                 "tags": [
                     "Authors"
@@ -306,7 +306,7 @@
                 ]
             }
         },
-        "/authors/{id}": {
+        "/api/v1/authors/{id}": {
             "put": {
                 "tags": [
                     "Authors"
@@ -430,7 +430,7 @@
                 ]
             }
         },
-        "/categories": {
+        "/api/v1/categories": {
             "get": {
                 "tags": [
                     "Categories"
@@ -528,7 +528,7 @@
                 ]
             }
         },
-        "/categories/{id}": {
+        "/api/v1/categories/{id}": {
             "put": {
                 "tags": [
                     "Categories"
@@ -652,7 +652,7 @@
                 ]
             }
         },
-        "/sources": {
+        "/api/v1/sources": {
             "get": {
                 "tags": [
                     "Sources"
@@ -750,7 +750,7 @@
                 ]
             }
         },
-        "/sources/{id}": {
+        "/api/v1/sources/{id}": {
             "put": {
                 "tags": [
                     "Sources"
@@ -1321,7 +1321,7 @@
                         "required": true,
                         "schema": {
                             "type": "integer",
-                            "example": 123
+                            "example": 1
                         }
                     }
                 ],
@@ -1421,7 +1421,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             }
         },
         "/api/v1/userPreferences/list": {
@@ -1490,7 +1495,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             }
         },
         "/api/v1/userPreferences": {
@@ -1571,7 +1581,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             }
         }
     },

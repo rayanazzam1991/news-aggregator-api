@@ -5,7 +5,6 @@ namespace App\Providers;
 use Event;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Modules\Article\Listeners\StoreFetchedNewsListener;
@@ -16,10 +15,7 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Register any application services.
      */
-    public function register(): void
-    {
-        //
-    }
+    public function register(): void {}
 
     /**
      * Bootstrap any application services.
@@ -32,8 +28,6 @@ class AppServiceProvider extends ServiceProvider
         );
 
         RateLimiter::for('api', function (Request $request) {
-            Log::info('here');
-
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
     }

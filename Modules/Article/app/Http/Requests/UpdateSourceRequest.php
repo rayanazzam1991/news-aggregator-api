@@ -15,7 +15,7 @@ class UpdateSourceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['sometimes', 'string'],
         ];
     }
 

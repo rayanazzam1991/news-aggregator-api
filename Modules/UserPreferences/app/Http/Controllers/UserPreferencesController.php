@@ -28,6 +28,7 @@ class UserPreferencesController extends Controller
      *     tags={"User Preferences"},
      *     summary="Get list of user preferences",
      *     description="Returns a paginated list of user preferences for a given user.",
+     *     security={{"sanctum": {}}},
      *
      *     @OA\RequestBody(
      *         required=true,
@@ -92,6 +93,7 @@ class UserPreferencesController extends Controller
      *     tags={"User Preferences"},
      *     summary="Store a user preference",
      *     description="Creates a new user preference with a specified type and value",
+     *     security={{"sanctum": {}}},
      *
      *     @OA\RequestBody(
      *         required=true,

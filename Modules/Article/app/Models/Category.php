@@ -2,6 +2,7 @@
 
 namespace Modules\Article\Models;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -29,7 +30,7 @@ use Modules\Article\Database\Factories\CategoryFactory;
  * @method static Builder<static>|Category withTrashed()
  * @method static Builder<static>|Category withoutTrashed()
  *
- * @mixin \Eloquent
+ * @mixin Eloquent
  */
 class Category extends Model
 {

@@ -26,17 +26,6 @@ use Modules\Article\Database\Factories\AuthorFactory;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Author whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Author withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Author withoutTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Author newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Author newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Author onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Author query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Author whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Author whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Author whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Author whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Author whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Author withTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Author withoutTrashed()
  *
  * @mixin \Eloquent
  */

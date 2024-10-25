@@ -21,7 +21,7 @@ class SourceController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/sources",
+     *     path="/api/v1/sources",
      *     operationId="getSourcesList",
      *     tags={"Sources"},
      *     summary="Get list of sources",
@@ -59,7 +59,7 @@ class SourceController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/sources",
+     *     path="/api/v1/sources",
      *     operationId="createSource",
      *     tags={"Sources"},
      *     summary="Create a new source",
@@ -115,7 +115,7 @@ class SourceController extends Controller
 
     /**
      * @OA\Put(
-     *     path="/sources/{id}",
+     *     path="/api/v1/sources/{id}",
      *     operationId="updateSource",
      *     tags={"Sources"},
      *     summary="Update an existing source",
@@ -177,7 +177,7 @@ class SourceController extends Controller
 
     /**
      * @OA\Delete(
-     *     path="/sources/{id}",
+     *     path="/api/v1/sources/{id}",
      *     operationId="deleteSource",
      *     tags={"Sources"},
      *     summary="Delete a source",

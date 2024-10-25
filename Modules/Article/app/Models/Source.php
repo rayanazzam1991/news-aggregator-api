@@ -2,6 +2,7 @@
 
 namespace Modules\Article\Models;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -31,7 +32,7 @@ use Modules\Article\Database\Factories\SourceFactory;
  * @method static Builder<static>|Source withTrashed()
  * @method static Builder<static>|Source withoutTrashed()
  *
- * @mixin \Eloquent
+ * @mixin Eloquent
  */
 class Source extends Model
 {

@@ -6,7 +6,7 @@ In this project, I implemented a **modular monolith architecture** due to the di
 - **User Authentication**
 - **Articles**
 - **User Preferences**
-- **System Components** (with the potential to evolve into microservices in the future)
+- **Data Aggregation** (with the potential to evolve into microservices in the future)
 
 This architecture offers several key advantages:
 
@@ -15,6 +15,10 @@ This architecture offers several key advantages:
 - **Future Scalability**: Modules can be easily extracted into microservices if the system scales, allowing for a seamless transition to a microservices architecture.
 
 I designed this project with flexibility in mind to support future expansion and evolving requirements. For a more in-depth understanding of my approach, please refer to the project walkthrough video.
+
+[How to test the system ?](https://drive.google.com/file/d/13HsgofQtZGRMlazL-XHEYrBcOC4yYTqR/view?usp=sharing)
+
+[System Architecture](https://www.dropbox.com/scl/fi/6psqakso928m6ea6hkwlx/Architecture-compressed.mov?rlkey=hklpf5ino9pit9tb7gbow8c2l&st=rzsyh75h&dl=0)
 
 Thank you for taking the time to explore my work!
 

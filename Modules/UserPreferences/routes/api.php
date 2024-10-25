@@ -14,8 +14,7 @@ use Modules\UserPreferences\Http\Controllers\UserPreferencesController;
  * is assigned the "api" middleware group. Enjoy building your API!
  *
 */
-
-Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
+Route::middleware(['auth:sanctum', 'throttle:api'])->prefix('v1')->group(function () {
     Route::apiResource('userPreferences', UserPreferencesController::class)->names('userPreferences');
 
     Route::group(['prefix' => 'userPreferences'], function () {

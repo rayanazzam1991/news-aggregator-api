@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Foundation\Inspiring;
-use Illuminate\Support\Facades\Artisan;
+use Modules\DataAggregation\Enum\NewsSourcesEnum;
+use Modules\DataAggregation\Jobs\FetchNewsJob;
 
-Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
-})->purpose('Display an inspiring quote')->hourly();
+Schedule::call(function () {
+    FetchNewsJob::dispatch(NewsSourcesEnum::NEW_YORK_TIMES->value);
+    FetchNewsJob::dispatch(NewsSourcesEnum::GUARDIAN->value)->delay(now()->addMinutes(1));
+    FetchNewsJob::dispatch(NewsSourcesEnum::NEWS_API->value)->delay(now()->addMinutes(1));
+})->everyFiveMinutes();

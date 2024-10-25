@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Cache;
 use Modules\Article\Database\Factories\ArticleFactory;
 
 /**
@@ -89,5 +90,18 @@ class Article extends Model
     public function source(): BelongsTo
     {
         return $this->belongsTo(Source::class);
+    }
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::updating(function () {
+            Cache::tags('articles')->flush(); // Use cache tags if necessary
+        });
+
+        static::created(function () {
+            Cache::tags('articles')->flush(); // Use cache tags if necessary
+        });
     }
 }

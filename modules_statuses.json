@@ -1,5 +1,6 @@
 {
     "Auth": true,
     "Article": true,
-    "UserPreferences": true
+    "UserPreferences": true,
+    "DataAggregation": true
 }

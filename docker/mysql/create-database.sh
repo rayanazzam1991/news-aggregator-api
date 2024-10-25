@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-
-mysql --user=root --password="$MYSQL_ROOT_PASSWORD" <<-EOSQL
-    CREATE DATABASE IF NOT EXISTS news_aggregator;
-    GRANT ALL PRIVILEGES ON \`news_aggregator%\`.* TO '$MYSQL_USER'@'%';
-EOSQL
-
+echo "Attempting to create the testing database..."
 mysql --user=root --password="$MYSQL_ROOT_PASSWORD" <<-EOSQL
     CREATE DATABASE IF NOT EXISTS testing;
     GRANT ALL PRIVILEGES ON \`testing%\`.* TO '$MYSQL_USER'@'%';
 EOSQL
+if [ $? -eq 0 ]; then
+    echo "Database 'testing' created successfully!"
+else
+    echo "Error creating the 'testing' database."
+fi

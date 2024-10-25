@@ -1,9 +1,13 @@
 <?php
 
+use Illuminate\Pagination\LengthAwarePaginator;
+use Modules\Article\Filter\ArticleSearchFilter;
 use Modules\Article\Models\Article;
 use Modules\Article\Models\Author;
 use Modules\Article\Models\Category;
 use Modules\Article\Models\Source;
+use Modules\Article\Service\ArticleService;
+use Modules\Article\Service\CacheKeyService;
 use Modules\Auth\Models\User;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -201,4 +205,94 @@ describe('Articles List Test', function () {
             ]);
     });
 
+});
+describe("Articles List with Cache Test",function (){
+    beforeEach(function () {
+        Cache::tags('articles')->flush(); // Clear any cached data at the start
+    });
+
+    it('fetches articles from cache if cache exists', function () {
+        // Arrange: Mock CacheKeyService
+        $cacheKeyService = Mockery::mock(CacheKeyService::class);
+        $cacheKey = 'testing_cache_key';  // Define a consistent cache key for testing
+        $cacheKeyService->shouldReceive('generateArticleCacheKey')
+            ->andReturn($cacheKey);
+
+        // Bind the mock CacheKeyService to the service container
+        $this->app->instance(CacheKeyService::class, $cacheKeyService);
+
+        $articleService = app(ArticleService::class);
+        $filterParams = new ArticleSearchFilter();
+
+        // Arrange: Cache mock response
+        $cachedArticles = new LengthAwarePaginator(
+            collect([Article::factory()->make(['title' => 'Cached Article'])]),
+            1,
+            10
+        );
+
+        // Use consistent cache tags and key for the cached data
+        Cache::tags('articles')->put($cacheKey, $cachedArticles, 3600);
+
+        // Act: Call the service method
+        $response = $articleService->getArticlesList($filterParams);
+
+        // Assert: Check the response
+        expect($response)->toHaveCount(1)
+            ->and($response->first()->title)->toBe('Cached Article');
+    });
+
+    it('hits the database after cache invalidation', function () {
+        // Arrange
+        $articleService = app(ArticleService::class);
+        $filterParams = new ArticleSearchFilter(); // Simulate filter parameters as needed
+        $cacheKey = 'your_cache_key_for_testing';
+
+        // Create articles in the database
+        Article::factory()->create(['title' => 'Database Article']);
+
+        // Ensure cache is cleared after update
+        Cache::tags('articles')->flush();
+
+        // Act
+        $response = $articleService->getArticlesList($filterParams);
+
+        // Assert
+        expect($response)->toHaveCount(1)
+            ->and($response->first()->title)->toBe('Database Article');
+    });
+
+    it('does not hit the database if cache exists', function () {
+        // Arrange
+        $cacheKeyService = Mockery::mock(CacheKeyService::class);
+        $cacheKey = 'testing_cache_key';  // Define a consistent cache key for testing
+        $cacheKeyService->shouldReceive('generateArticleCacheKey')
+            ->andReturn($cacheKey);
+
+        // Bind the mock CacheKeyService to the service container
+        $this->app->instance(CacheKeyService::class, $cacheKeyService);
+
+        $articleService = app(ArticleService::class);
+        $filterParams = new ArticleSearchFilter();
+
+        // Cache mock response to simulate cache existence
+        $cachedArticles = new LengthAwarePaginator(
+            collect([Article::factory()->make(['title' => 'Cached Article'])]),
+            1,
+            10
+        );
+        Cache::tags('articles')->put($cacheKey, $cachedArticles, 3600);
+
+
+        // Spy on the database to verify no access
+        $spy = Mockery::spy(Article::class);
+
+        // Act
+        $response = $articleService->getArticlesList($filterParams);
+
+        // Assert
+        $spy->shouldNotHaveReceived('query');
+        expect($response)->toHaveCount(1)
+            ->and($response->first()->title)->toBe('Cached Article');
+    });
 });

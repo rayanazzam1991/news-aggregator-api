@@ -43,8 +43,8 @@ abstract class BaseRepository
     {
         $model = app()->make($this->model());
 
-        if (! $model instanceof Model) {
-            throw new Exception("Class {$this->model()} must be an instance of ".Model::class);
+        if (!$model instanceof Model) {
+            throw new Exception("Class {$this->model()} must be an instance of " . Model::class);
         }
 
         return $this->model = $model;
@@ -114,5 +114,10 @@ abstract class BaseRepository
     public function exists(int $id): bool
     {
         return $this->model::query()->find($id) !== null;
+    }
+
+    public function insert(array $data): void
+    {
+        $this->model::query()->insert($data);
     }
 }

@@ -140,7 +140,7 @@ return [
             // app/Http/
             'controller' => ['path' => 'app/Http/Controllers', 'generate' => true],
             'filter' => ['path' => 'app/Http/Middleware', 'generate' => false],
-            'request' => ['path' => 'app/Http/Requests', 'generate' => false],
+            'request' => ['path' => 'app/Http/NewsRequests', 'generate' => false],
             'resource' => ['path' => 'app/Http/Resources', 'generate' => false],
 
             // config/

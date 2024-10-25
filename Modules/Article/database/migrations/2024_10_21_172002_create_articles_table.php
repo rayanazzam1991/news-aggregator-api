@@ -21,9 +21,10 @@ return new class extends Migration
             $table->foreignIdFor(Category::class)->nullable()->constrained('categories');
             $table->foreignIdFor(Author::class)->nullable()->constrained('authors');
             $table->string('key_words')->nullable();
-            $table->string('summary')->nullable();
+            $table->text('summary')->nullable();
             $table->string('image_url')->nullable();
             $table->string('news_url')->nullable();
+            $table->dateTime('published_at')->nullable();
             $table->json('meta')->nullable();
 
             $table->softDeletes();

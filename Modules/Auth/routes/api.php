@@ -13,14 +13,14 @@ use Modules\Auth\Http\Controllers\AuthController;
  * is assigned the "api" middleware group. Enjoy building your API!
  *
 */
-
-Route::prefix('v1/auth')->group(function () {
-    Route::post('/login', [AuthController::class, 'login']);
-    Route::post('/register', [AuthController::class, 'register']);
+Route::middleware(['throttle:api'])->prefix('v1/auth/')->group(function () {
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('register', [AuthController::class, 'register']);
 
     Route::middleware('auth:sanctum')->group(function () {
-        Route::post('/logout', [AuthController::class, 'logout']);
-        Route::post('/forget_password', [AuthController::class, 'sendResetLinkEmail']);
-        Route::post('/reset_password', [AuthController::class, 'resetPassword']);
+        Route::post('logout', [AuthController::class, 'logout']);
+        Route::post('forget_password', [AuthController::class, 'sendResetLinkEmail']);
+        Route::post('reset_password', [AuthController::class, 'resetPassword']);
     });
 });
+

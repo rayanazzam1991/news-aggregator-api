@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/dataaggregation",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\DataAggregation\\": "app/",
+            "Modules\\DataAggregation\\Database\\Factories\\": "database/factories/",
+            "Modules\\DataAggregation\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\DataAggregation\\Tests\\": "tests/"
+        }
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "name": "DataAggregation",
+    "alias": "dataaggregation",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\DataAggregation\\Providers\\DataAggregationServiceProvider"
+    ],
+    "files": []
+}

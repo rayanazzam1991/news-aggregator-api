@@ -9,8 +9,13 @@ use Illuminate\Database\Eloquent\Model;
 use Modules\Article\Filter\ArticleSearchFilter;
 use Modules\Article\Models\Article;
 
-class ArticleRepository
+class ArticleRepository extends BaseRepository
 {
+
+    public function model(): string
+    {
+        return Article::class;
+    }
     public function searchWithPagination(ArticleSearchFilter $filter): LengthAwarePaginator
     {
         $query = $this->getFilterQuery($filter);
@@ -59,4 +64,5 @@ class ArticleRepository
                 $query->whereBetween('created_at', [$filter->date, $filter->date]);
             });
     }
+
 }

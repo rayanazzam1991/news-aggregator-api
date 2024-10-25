@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Config;
 use Modules\DataAggregation\Http\Integrations\NewsConnector\GuardianNewsConnector;
 use Modules\DataAggregation\Http\Integrations\NewsConnector\NewsOrgApiConnector;
 use Modules\DataAggregation\Http\Integrations\NewsConnector\NewYorkNewsConnector;
@@ -12,8 +12,6 @@ use Modules\DataAggregation\Service\FetchNewsOrgApiService;
 use Modules\DataAggregation\Service\FetchNTimesNewsService;
 use Saloon\Http\Faking\MockClient;
 use Saloon\Http\Faking\MockResponse;
-use Illuminate\Support\Facades\Config;
-
 
 describe('Test Guardian Normalize Function', function () {
 
@@ -40,7 +38,7 @@ describe('Test Guardian Normalize Function', function () {
             ], 200),
         ]);
 
-        $fetchService = new FetchGuardianNewsService(new GuardianNewsConnector());
+        $fetchService = new FetchGuardianNewsService(new GuardianNewsConnector);
         $result = $fetchService->fetch();
 
         expect($result)->toHaveCount(1)
@@ -69,7 +67,7 @@ describe('Test Guardian Normalize Function', function () {
             ], 200),
         ]);
 
-        $fetchService = new FetchGuardianNewsService(new GuardianNewsConnector());
+        $fetchService = new FetchGuardianNewsService(new GuardianNewsConnector);
         $result = $fetchService->fetch();
 
         expect($result)->toHaveCount(1)
@@ -91,7 +89,7 @@ describe('Test Guardian Normalize Function', function () {
             ], 200),
         ]);
 
-        $fetchService = new FetchGuardianNewsService(new GuardianNewsConnector());
+        $fetchService = new FetchGuardianNewsService(new GuardianNewsConnector);
         $result = $fetchService->fetch();
 
         expect($result)->toBeArray()->and($result)->toBeEmpty();
@@ -124,7 +122,7 @@ describe('Test New York Times Normalize Function', function () {
             ], 200),
         ]);
 
-        $fetchService = new FetchNTimesNewsService(new NewYorkNewsConnector());
+        $fetchService = new FetchNTimesNewsService(new NewYorkNewsConnector);
         $result = $fetchService->fetch();
 
         expect($result)->toHaveCount(1)
@@ -155,7 +153,7 @@ describe('Test New York Times Normalize Function', function () {
             ], 200),
         ]);
 
-        $fetchService = new FetchNTimesNewsService(new NewYorkNewsConnector());
+        $fetchService = new FetchNTimesNewsService(new NewYorkNewsConnector);
         $result = $fetchService->fetch();
 
         expect($result)->toHaveCount(1)
@@ -178,7 +176,7 @@ describe('Test New York Times Normalize Function', function () {
             ], 200),
         ]);
 
-        $fetchService = new FetchNTimesNewsService(new NewYorkNewsConnector());
+        $fetchService = new FetchNTimesNewsService(new NewYorkNewsConnector);
         $result = $fetchService->fetch();
 
         expect($result)->toBeArray()->and($result)->toBeEmpty();
@@ -205,7 +203,7 @@ describe('Test News org Api Normalize Function', function () {
             ], 200),
         ]);
 
-        $fetchService = new FetchNewsOrgApiService(new NewsOrgApiConnector());
+        $fetchService = new FetchNewsOrgApiService(new NewsOrgApiConnector);
         $result = $fetchService->fetch();
 
         expect($result)->toHaveCount(1)
@@ -233,7 +231,7 @@ describe('Test News org Api Normalize Function', function () {
             ], 200),
         ]);
 
-        $fetchService = new FetchNewsOrgApiService(new NewsOrgApiConnector());
+        $fetchService = new FetchNewsOrgApiService(new NewsOrgApiConnector);
         $result = $fetchService->fetch();
 
         expect($result)->toHaveCount(1)
@@ -256,7 +254,7 @@ describe('Test News org Api Normalize Function', function () {
             ], 200),
         ]);
 
-        $fetchService = new FetchNewsOrgApiService(new NewsOrgApiConnector());
+        $fetchService = new FetchNewsOrgApiService(new NewsOrgApiConnector);
         $result = $fetchService->fetch();
 
         expect($result)->toBeArray()->and($result)->toBeEmpty();

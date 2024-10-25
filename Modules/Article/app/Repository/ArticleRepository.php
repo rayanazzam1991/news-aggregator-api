@@ -11,11 +11,11 @@ use Modules\Article\Models\Article;
 
 class ArticleRepository extends BaseRepository
 {
-
     public function model(): string
     {
         return Article::class;
     }
+
     public function searchWithPagination(ArticleSearchFilter $filter): LengthAwarePaginator
     {
         $query = $this->getFilterQuery($filter);
@@ -64,5 +64,4 @@ class ArticleRepository extends BaseRepository
                 $query->whereBetween('created_at', [$filter->date, $filter->date]);
             });
     }
-
 }

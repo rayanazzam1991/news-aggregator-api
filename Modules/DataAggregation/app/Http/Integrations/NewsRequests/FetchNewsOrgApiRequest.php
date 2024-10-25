@@ -8,11 +8,7 @@ use Saloon\Http\Request;
 
 class FetchNewsOrgApiRequest extends Request
 {
-
-
-    public function __construct(private readonly NewsOrgApiRequestDTO $DTO)
-    {
-    }
+    public function __construct(private readonly NewsOrgApiRequestDTO $DTO) {}
 
     /**
      * The HTTP method of the request
@@ -39,9 +35,7 @@ class FetchNewsOrgApiRequest extends Request
     public function defaultConfig(): array
     {
         return [
-            'timeout' => 30
+            'timeout' => 30,
         ];
     }
-
-
 }

@@ -8,7 +8,5 @@ class NTimesRequestDTO extends Data
 {
     public function __construct(
         public string $apiKey
-    )
-    {}
-
+    ) {}
 }

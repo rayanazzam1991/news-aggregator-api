@@ -7,24 +7,16 @@ use Illuminate\Support\Facades\Config;
 use JsonException;
 use Modules\DataAggregation\Contracts\FetchNewsServiceInterface;
 use Modules\DataAggregation\Http\Integrations\NewsConnector\NewsOrgApiConnector;
-use Modules\DataAggregation\Http\Integrations\NewsConnector\NewYorkNewsConnector;
 use Modules\DataAggregation\Http\Integrations\NewsRequests\DTO\NewsOrgApiRequestDTO;
-use Modules\DataAggregation\Http\Integrations\NewsRequests\DTO\NTimesRequestDTO;
 use Modules\DataAggregation\Http\Integrations\NewsRequests\FetchNewsOrgApiRequest;
-use Modules\DataAggregation\Http\Integrations\NewsRequests\FetchNTimesNewsRequest;
 use Saloon\Exceptions\Request\FatalRequestException;
 use Saloon\Exceptions\Request\RequestException;
 
 readonly class FetchNewsOrgApiService implements FetchNewsServiceInterface
 {
-
     public function __construct(
         private NewsOrgApiConnector $connector
-    )
-    {
-
-    }
-
+    ) {}
 
     /**
      * @throws FatalRequestException
@@ -41,6 +33,7 @@ readonly class FetchNewsOrgApiService implements FetchNewsServiceInterface
         $request = new FetchNewsOrgApiRequest($requestDTO);
         $response = $this->connector->send($request);
         $responseBody = $response->json();
+
         return $this->normalizeData($responseBody);
     }
 

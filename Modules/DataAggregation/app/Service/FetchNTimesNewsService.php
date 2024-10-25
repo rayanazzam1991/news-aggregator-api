@@ -14,13 +14,9 @@ use Saloon\Exceptions\Request\RequestException;
 
 readonly class FetchNTimesNewsService implements FetchNewsServiceInterface
 {
-
     public function __construct(
         private NewYorkNewsConnector $connector
-    )
-    {
-
-    }
+    ) {}
 
     /**
      * @throws FatalRequestException
@@ -34,9 +30,9 @@ readonly class FetchNTimesNewsService implements FetchNewsServiceInterface
         $request = new FetchNTimesNewsRequest($requestDTO);
         $response = $this->connector->send($request);
         $responseBody = $response->json();
+
         return $this->normalizeData($responseBody);
     }
-
 
     private function normalizeData($apiResponse): array
     {
@@ -45,11 +41,11 @@ readonly class FetchNTimesNewsService implements FetchNewsServiceInterface
         foreach ($apiResponse['response']['docs'] ?? [] as $doc) {
             // Build the author's full name or set a default if missing
             $authorFullName = 'Unknown';
-            if (!empty($doc['byline']['person']) && isset($doc['byline']['person'][0])) {
+            if (! empty($doc['byline']['person']) && isset($doc['byline']['person'][0])) {
                 $author = $doc['byline']['person'][0];
                 $authorFullName = trim(
-                    ($author['firstname'] ?? '') . ' ' .
-                    ($author['middlename'] ?? '') . ' ' .
+                    ($author['firstname'] ?? '').' '.
+                    ($author['middlename'] ?? '').' '.
                     ($author['lastname'] ?? '')
                 );
                 // Remove extra spaces
@@ -63,7 +59,7 @@ readonly class FetchNTimesNewsService implements FetchNewsServiceInterface
             $articleData = [
                 'title' => $doc['headline']['main'] ?? '', // Use empty string if missing
                 'summary' => $doc['abstract'] ?? ($doc['snippet'] ?? ''), // Use snippet if abstract is missing
-                'image_url' => isset($doc['multimedia'][0]['url']) ? 'https://www.nytimes.com/' . $doc['multimedia'][0]['url'] : null,
+                'image_url' => isset($doc['multimedia'][0]['url']) ? 'https://www.nytimes.com/'.$doc['multimedia'][0]['url'] : null,
                 'news_url' => $doc['web_url'] ?? '', // Use empty string if missing
                 'key_words' => $keyWordsString,
                 'category' => $doc['section_name'] ?? '', // Use empty string if missing

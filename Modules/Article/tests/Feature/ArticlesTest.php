@@ -206,7 +206,7 @@ describe('Articles List Test', function () {
     });
 
 });
-describe("Articles List with Cache Test",function (){
+describe('Articles List with Cache Test', function () {
     beforeEach(function () {
         Cache::tags('articles')->flush(); // Clear any cached data at the start
     });
@@ -222,7 +222,7 @@ describe("Articles List with Cache Test",function (){
         $this->app->instance(CacheKeyService::class, $cacheKeyService);
 
         $articleService = app(ArticleService::class);
-        $filterParams = new ArticleSearchFilter();
+        $filterParams = new ArticleSearchFilter;
 
         // Arrange: Cache mock response
         $cachedArticles = new LengthAwarePaginator(
@@ -245,7 +245,7 @@ describe("Articles List with Cache Test",function (){
     it('hits the database after cache invalidation', function () {
         // Arrange
         $articleService = app(ArticleService::class);
-        $filterParams = new ArticleSearchFilter(); // Simulate filter parameters as needed
+        $filterParams = new ArticleSearchFilter; // Simulate filter parameters as needed
         $cacheKey = 'your_cache_key_for_testing';
 
         // Create articles in the database
@@ -273,7 +273,7 @@ describe("Articles List with Cache Test",function (){
         $this->app->instance(CacheKeyService::class, $cacheKeyService);
 
         $articleService = app(ArticleService::class);
-        $filterParams = new ArticleSearchFilter();
+        $filterParams = new ArticleSearchFilter;
 
         // Cache mock response to simulate cache existence
         $cachedArticles = new LengthAwarePaginator(
@@ -282,7 +282,6 @@ describe("Articles List with Cache Test",function (){
             10
         );
         Cache::tags('articles')->put($cacheKey, $cachedArticles, 3600);
-
 
         // Spy on the database to verify no access
         $spy = Mockery::spy(Article::class);

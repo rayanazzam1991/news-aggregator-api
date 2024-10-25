@@ -3,11 +3,10 @@
 namespace Modules\DataAggregation\Console;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
 use Modules\DataAggregation\Enum\NewsSourcesEnum;
 use Modules\DataAggregation\Jobs\FetchNewsJob;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 class FetchNewsCommand extends Command
 {
@@ -34,8 +33,8 @@ class FetchNewsCommand extends Command
      */
     public function handle()
     {
-//        FetchNewsJob::dispatch(NewsSourcesEnum::NEW_YORK_TIMES->value);
-//        FetchNewsJob::dispatch(NewsSourcesEnum::GUARDIAN->value);
+        //        FetchNewsJob::dispatch(NewsSourcesEnum::NEW_YORK_TIMES->value);
+        //        FetchNewsJob::dispatch(NewsSourcesEnum::GUARDIAN->value);
         FetchNewsJob::dispatch(NewsSourcesEnum::NEWS_API->value);
     }
 

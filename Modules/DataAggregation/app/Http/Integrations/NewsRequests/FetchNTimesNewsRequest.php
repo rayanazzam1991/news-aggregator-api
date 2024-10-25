@@ -8,10 +8,7 @@ use Saloon\Http\Request;
 
 class FetchNTimesNewsRequest extends Request
 {
-
-    public function __construct(private readonly NTimesRequestDTO $DTO)
-    {
-    }
+    public function __construct(private readonly NTimesRequestDTO $DTO) {}
 
     /**
      * The HTTP method of the request
@@ -30,16 +27,15 @@ class FetchNTimesNewsRequest extends Request
     {
         return [
             'api-key' => $this->DTO->apiKey,
-//            'begin_data' => Carbon::today()->format('Ymd'),
-//            'end_data' => Carbon::today()->format('Ymd')
+            //            'begin_data' => Carbon::today()->format('Ymd'),
+            //            'end_data' => Carbon::today()->format('Ymd')
         ];
     }
 
     public function defaultConfig(): array
     {
         return [
-            'timeout' => 30
+            'timeout' => 30,
         ];
     }
-
 }

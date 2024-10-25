@@ -3,12 +3,9 @@
 namespace Modules\DataAggregation\Jobs;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Support\Facades\Redis;
-use Log;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 use Modules\DataAggregation\Contracts\FetchNewsServiceInterface;
 use Modules\DataAggregation\Events\NewsFetchedEvent;
 use Modules\DataAggregation\Service\FetchNTimesNewsService;
@@ -18,6 +15,7 @@ class FetchNewsJob
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public string $newsSource;
+
     private readonly FetchNTimesNewsService $fetchNewsService;
 
     /**
@@ -25,8 +23,7 @@ class FetchNewsJob
      */
     public function __construct($newsSource
 
-    )
-    {
+    ) {
         $this->newsSource = $newsSource;
     }
 

@@ -15,8 +15,7 @@ class StoreFetchedNewsListener implements ShouldQueue
      */
     public function __construct(
         private readonly ArticleService $articleService
-    )
-    {
+    ) {
         //
     }
 

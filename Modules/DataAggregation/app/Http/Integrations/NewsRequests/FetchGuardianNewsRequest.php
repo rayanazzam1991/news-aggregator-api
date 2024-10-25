@@ -8,9 +8,8 @@ use Saloon\Http\Request;
 
 class FetchGuardianNewsRequest extends Request
 {
+    public function __construct(private readonly GuardianRequestDTO $DTO) {}
 
-
-    public function __construct(private readonly GuardianRequestDTO $DTO){}
     /**
      * The HTTP method of the request
      */
@@ -30,12 +29,11 @@ class FetchGuardianNewsRequest extends Request
             'api-key' => $this->DTO->apiKey,
         ];
     }
+
     public function defaultConfig(): array
     {
         return [
-            'timeout' => 30
+            'timeout' => 30,
         ];
     }
-
-
 }

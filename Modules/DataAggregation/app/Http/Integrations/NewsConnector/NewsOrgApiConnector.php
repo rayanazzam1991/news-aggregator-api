@@ -2,7 +2,6 @@
 
 namespace Modules\DataAggregation\Http\Integrations\NewsConnector;
 
-use Illuminate\Support\Facades\Lang;
 use Saloon\Exceptions\SaloonException;
 use Saloon\Http\Connector;
 use Saloon\Http\Response;
@@ -46,8 +45,9 @@ class NewsOrgApiConnector extends Connector
     public function hasRequestFailed(Response $response): ?bool
     {
         $res = json_decode($response->body());
-        if ($response->status() == 200)
+        if ($response->status() == 200) {
             return false;
+        }
         throw new SaloonException($res->message, $response->status());
     }
 }

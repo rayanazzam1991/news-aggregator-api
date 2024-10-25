@@ -23,4 +23,3 @@ Route::middleware(['throttle:api'])->prefix('v1/auth/')->group(function () {
         Route::post('reset_password', [AuthController::class, 'resetPassword']);
     });
 });
-

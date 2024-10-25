@@ -8,7 +8,6 @@ use Modules\Article\Service\ArticleService;
 
 class RedisSubscribe extends Command
 {
-
     private readonly ArticleService $articleService;
 
     public function __construct(ArticleService $articleService)

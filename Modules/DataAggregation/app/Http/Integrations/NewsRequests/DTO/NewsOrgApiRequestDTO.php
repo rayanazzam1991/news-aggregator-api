@@ -11,7 +11,5 @@ class NewsOrgApiRequestDTO extends Data
         public string $sortBy,
         public string $category,
 
-    )
-    {}
-
+    ) {}
 }

@@ -43,8 +43,8 @@ abstract class BaseRepository
     {
         $model = app()->make($this->model());
 
-        if (!$model instanceof Model) {
-            throw new Exception("Class {$this->model()} must be an instance of " . Model::class);
+        if (! $model instanceof Model) {
+            throw new Exception("Class {$this->model()} must be an instance of ".Model::class);
         }
 
         return $this->model = $model;

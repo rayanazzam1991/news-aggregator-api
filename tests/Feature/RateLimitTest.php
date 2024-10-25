@@ -2,11 +2,12 @@
 
 use Illuminate\Support\Carbon;
 use Modules\Auth\Models\User;
-use function Pest\Laravel\{postJson,actingAs};
 
-describe('Test Api Rate limit',function (){
+use function Pest\Laravel\actingAs;
 
-    beforeEach(function (){
+describe('Test Api Rate limit', function () {
+
+    beforeEach(function () {
         $this->user = User::factory()->create();
     });
     it('allows up to 60 requests per minute', function () {

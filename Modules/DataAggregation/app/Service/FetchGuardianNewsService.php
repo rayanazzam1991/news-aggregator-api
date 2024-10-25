@@ -14,12 +14,9 @@ use Saloon\Exceptions\Request\RequestException;
 
 readonly class FetchGuardianNewsService implements FetchNewsServiceInterface
 {
-
     public function __construct(
         private GuardianNewsConnector $connector
-    )
-    {
-    }
+    ) {}
 
     /**
      * @throws FatalRequestException
@@ -32,6 +29,7 @@ readonly class FetchGuardianNewsService implements FetchNewsServiceInterface
         $request = new FetchGuardianNewsRequest($requestDTO);
         $response = $this->connector->send($request);
         $responseBody = $response->json();
+
         return $this->normalizeData($responseBody);
     }
 
@@ -60,5 +58,4 @@ readonly class FetchGuardianNewsService implements FetchNewsServiceInterface
 
         return $articlesData;
     }
-
 }

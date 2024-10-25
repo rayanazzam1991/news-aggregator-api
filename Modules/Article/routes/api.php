@@ -17,7 +17,7 @@ use Modules\Article\Http\Controllers\SourceController;
  *
 */
 
-Route::middleware(['auth:sanctum','throttle:api'])->prefix('v1')->group(function () {
+Route::middleware(['auth:sanctum', 'throttle:api'])->prefix('v1')->group(function () {
 
     Route::group(['prefix' => 'articles'], function () {
         Route::post('/list', [ArticleController::class, 'list']);

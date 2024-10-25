@@ -6,7 +6,6 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Log;
 use Modules\Article\Filter\ArticleSearchFilter;
 use Modules\Article\Models\Article;
 use Modules\Article\Models\Author;
@@ -20,9 +19,7 @@ readonly class ArticleService
     public function __construct(
         private ArticleRepository $articleRepository,
         private CacheKeyService $cacheKeyService
-    )
-    {
-    }
+    ) {}
 
     /**
      * @return LengthAwarePaginator<Article>
@@ -41,7 +38,6 @@ readonly class ArticleService
         });
     }
 
-
     public function getArticleDetails(int $id): Model
     {
         return $this->articleRepository->show($id);
@@ -51,12 +47,12 @@ readonly class ArticleService
     {
         $jsonData = json_decode($stringNews, true);
 
-
         foreach ($jsonData as $key => &$item) {
             // Check if the news already exists in the database
             if ($this->checkNewsExisted($item)) {
                 // If it exists, remove it from the array
                 unset($jsonData[$key]);
+
                 continue; // Skip to the next item
             }
 
@@ -67,54 +63,61 @@ readonly class ArticleService
             unset($item['author']);
             unset($item['category']);
         }
-        if (!empty($jsonData))
+        if (! empty($jsonData)) {
             $this->articleRepository->insert($jsonData);
+        }
 
     }
 
-    private function createOrGetSourceId(string $sourceName): int|null
+    private function createOrGetSourceId(string $sourceName): ?int
     {
-        if (empty($sourceName))
+        if (empty($sourceName)) {
             return null;
+        }
 
         $source = Source::query()->where(column: 'name', operator: '=', value: $sourceName)->first();
         if ($source != null) {
             return $source->id;
         }
+
         return Source::query()->create([
-            'name' => $sourceName
+            'name' => $sourceName,
         ])->id;
     }
 
-    private function createOrGetCategoryId(string $categoryName): int|null
+    private function createOrGetCategoryId(string $categoryName): ?int
     {
-        if (empty($categoryName))
+        if (empty($categoryName)) {
             return null;
+        }
 
         $category = Category::query()->where(column: 'name', operator: '=', value: $categoryName)->first();
         if ($category != null) {
             return $category->id;
         }
+
         return Category::query()->create(attributes: [
-            'name' => $categoryName
+            'name' => $categoryName,
         ])->id;
     }
 
-    private function createOrGetAuthorId(string $authorName): int|null
+    private function createOrGetAuthorId(string $authorName): ?int
     {
-        if (empty($authorName))
+        if (empty($authorName)) {
             return null;
+        }
 
         $author = Author::query()->where(column: 'name', operator: '=', value: $authorName)->first();
         if ($author != null) {
             return $author->id;
         }
+
         return Author::query()->create(attributes: [
-            'name' => $authorName
+            'name' => $authorName,
         ])->id;
     }
 
-    function checkNewsExisted($newsData): bool
+    public function checkNewsExisted($newsData): bool
     {
 
         // Extract required fields from the news data
@@ -130,5 +133,4 @@ readonly class ArticleService
             })
             ->exists();
     }
-
 }

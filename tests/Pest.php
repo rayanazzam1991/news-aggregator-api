@@ -1,8 +1,6 @@
 <?php
 
-use Illuminate\Contracts\Config\Repository;
 use Tests\RefreshDatabaseWithSeed;
-use Illuminate\Support\Facades\Config;
 
 pest()
     ->use(RefreshDatabaseWithSeed::class)

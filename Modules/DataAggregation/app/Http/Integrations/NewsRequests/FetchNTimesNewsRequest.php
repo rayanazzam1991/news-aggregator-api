@@ -27,8 +27,6 @@ class FetchNTimesNewsRequest extends Request
     {
         return [
             'api-key' => $this->DTO->apiKey,
-            //            'begin_data' => Carbon::today()->format('Ymd'),
-            //            'end_data' => Carbon::today()->format('Ymd')
         ];
     }
 

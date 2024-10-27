@@ -17,7 +17,9 @@ class ArticleController extends Controller
 {
     public function __construct(
         private readonly ArticleService $articleService
-    ) {}
+    )
+    {
+    }
 
     /**
      * @OA\Get(
@@ -195,13 +197,15 @@ class ArticleController extends Controller
     {
         /**
          * @var array{
+         *     title:string | null,
          *     keywords:array<string> | null,
          *     date:string | null,
          *     category_id:int | null,
-         *     author_id:int | null,
-         *     srouce_id:int |null
+         *     source_id:int |null,
+         *     author_id:int | null
          * } $requestedFilterData
          */
+
         $requestedFilterData = $request->validated();
 
         $filterParams = ArticleSearchFilter::fromRequest($requestedFilterData);

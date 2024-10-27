@@ -2,9 +2,11 @@
 
 namespace Modules\Article\Service;
 
+use Illuminate\Support\Collection;
 use Modules\Article\Contracts\NewsFeedPublicInterface;
 use Modules\Article\Enums\PreferenceTypesEnum;
 use Modules\Article\Filter\ArticleSearchFilter;
+use Modules\Article\Models\Article;
 use Modules\Article\Repository\ArticleRepository;
 
 readonly class NewsFeedPublicService implements NewsFeedPublicInterface
@@ -14,17 +16,25 @@ readonly class NewsFeedPublicService implements NewsFeedPublicInterface
     ) {}
 
     /**
-     * @param array<int,array{
-     *     preference_id:int,
-     *     preference_type:string,
+     * Retrieve a collection of articles based on preferences.
+     *
+     * @param array<int, array{
+     *     preference_id: int,
+     *     preference_type: string
      * }> $request
+     * @return Collection<int, Article>
      */
-    public function getArticles(array $request): \Illuminate\Support\Collection
+    public function getArticles(array $request): Collection
     {
+        /** @var Collection<int, Article> $result */
         $result = collect();
+
         foreach ($request as $item) {
             $filter = $this->mapToArticleFilter($item);
+
+            /** @var Collection<int, Article> $articles */
             $articles = $this->articleRepository->searchWithLimit($filter, 10);
+
             $result = $result->merge($articles);
         }
 

@@ -16,13 +16,18 @@ class RegisterUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required'],
-            'email' => ['required', 'unique:users,email'],
-            'password' => ['required', 'confirmed', Password::min(8)
-                ->mixedCase()
-                ->letters()
-                ->numbers()
-                ->symbols()],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'unique:users,email'],
+            'password' => [
+                'required',
+                'confirmed',
+                Password::min(8)
+                    ->mixedCase() // Makes the password require at least one uppercase and one lowercase letter.
+                    ->letters() // Makes the password require at least one letter.
+                    ->numbers() // Makes the password require at least one number.
+                    ->symbols() // Makes the password require at least one symbol.
+                    ->uncompromised(5) // Allow passwords that have appeared in breaches fewer than 5 times
+            ],
             'password_confirmation' => ['required'],
         ];
     }

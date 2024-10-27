@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Article\Repository;
+namespace App\Helpers\Eloquent;
 
 use App\Enum\GeneralParamsEnum;
 use Exception;
@@ -17,7 +17,7 @@ abstract class BaseRepository
     /**
      * The repository model instance.
      *
-     * @var TModel
+     * @var Model
      */
     protected Model $model;
 
@@ -34,7 +34,7 @@ abstract class BaseRepository
     /**
      * Create an instance of the model.
      *
-     * @return TModel
+     * @return Model
      *
      * @throws BindingResolutionException
      * @throws Exception
@@ -78,7 +78,7 @@ abstract class BaseRepository
     /**
      * Get a model by its ID.
      *
-     * @return TModel
+     * @return Model
      */
     public function getById(int $id): Model
     {

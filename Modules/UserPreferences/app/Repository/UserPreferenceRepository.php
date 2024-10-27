@@ -3,9 +3,9 @@
 namespace Modules\UserPreferences\Repository;
 
 use App\Enum\GeneralParamsEnum;
+use App\Helpers\Eloquent\BaseRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
-use Modules\Article\Repository\BaseRepository;
 use Modules\UserPreferences\Models\UserPreference;
 
 class UserPreferenceRepository extends BaseRepository

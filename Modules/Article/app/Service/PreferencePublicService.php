@@ -30,7 +30,7 @@ readonly class PreferencePublicService implements PreferencePublicInterface
         }
     }
 
-    public function getPreference(int $id, string $type): ?string
+    public function getPreference(int $id, string $type): string|null
     {
         switch ($type) {
             case PreferenceTypesEnum::AUTHOR->value:

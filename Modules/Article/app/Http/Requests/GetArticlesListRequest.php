@@ -15,6 +15,7 @@ class GetArticlesListRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'title'=>['sometimes','string'],
             'keywords' => ['sometimes', 'array'],
             'date' => ['sometimes', 'date'],
             'author_id' => ['sometimes', 'integer', 'exists:authors,id'],

@@ -2,7 +2,7 @@
 
 namespace Modules\Auth\Repository;
 
-use Modules\Article\Repository\BaseRepository;
+use App\Helpers\Eloquent\BaseRepository;
 use Modules\Auth\Models\User;
 
 class UserRepository extends BaseRepository
